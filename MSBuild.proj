@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Test" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Source>http://120.24.239.82:88/nuget</Source>   
+    <SolutionFileName>JenkinsTests.sln</SolutionFileName>
+    <JenkinsDir>E:\Program Files (x86)\Jenkins</JenkinsDir>
+    <ToolsDir>$(JenkinsDir)\tools</ToolsDir>
+    <BaseDir>$(MSBuildStartupDirectory)</BaseDir>
+    <BuildDir>$(BaseDir)\Build</BuildDir>    
+    <ReleaseDir>$(BuildDir)\Release</ReleaseDir>
+    <PackageDir>$(BuildDir)\Package</PackageDir>
+  
+    <SolutionFullName>$(MSBuildStartupDirectory)\$(SolutionFileName)</SolutionFullName>
+  
+    <MSBuildCommunityTasksPath>$(ToolsDir)\MSBuildTasks.*\tools</MSBuildCommunityTasksPath>
+    <XUnitTasksPath>$(ToolsDir)\xunit.MSBuild.*</XUnitTasksPath>    
+    
+    <!-- Overrider properties -->
+    <IntermediateOutputPath>$(BuildDir)\obj\</IntermediateOutputPath>
+    <OutputPath>$(ReleaseDir)\</OutputPath>    
+    
+    <BuildConfiguration Condition=" '$(BuildConfiguration)' == '' ">Release</BuildConfiguration>
+  </PropertyGroup>
+  
+  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.targets" />    
+  <Import Project="$(XUnitTasksPath)\build\xunit.MSBuild.targets" />
+  
+  <Target Name="Clean">    
+    <DeleteTree Directories="$(BuildDir)" ContinueOnError="true" />
+    <DeleteTree Directories="**\obj\**;**\bin\**" ContinueOnError="true" />    
+  </Target>
+  
+  <Target Name="Compile" DependsOnTargets="Clean">
+    <MakeDir Directories="$(BuildDir)" Condition="!EXISTS($(BuildDir))" />
+    <MakeDir Directories="$(ReleaseDir)" Condition="!EXISTS($(ReleaseDir))" />
+    <MakeDir Directories="$(IntermediateOutputPath)" Condition="!EXISTS($(IntermediateOutputPath))" />
+    <MakeDir Directories="$(PackageDir)" Condition="!EXISTS($(PackageDir))" />
+    
+    <NuGetRestore Solution="$(SolutionFullName)" Source="$(Source)" />
+    
+    <MSBuild Projects="$(SolutionFullName)" 
+             Properties="OutputPath=$(OutputPath);IntermediateOutputPath=$(IntermediateOutputPath);Configuration=$(BuildConfiguration)"/>
+  </Target>
+    
+  <Target Name="Test" DependsOnTargets="Compile">        
+  </Target>
+
+</Project>
