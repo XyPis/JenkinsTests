@@ -16,6 +16,7 @@
     <XUnitTasksPath>$(ToolsDir)\xunit.MSBuild.*</XUnitTasksPath>    
     
     <!-- Overrider properties -->
+    
     <IntermediateOutputPath>$(BuildDir)\obj\</IntermediateOutputPath>
     <OutputPath>$(ReleaseDir)\</OutputPath>    
     <RunXunitTests>true</RunXunitTests>
