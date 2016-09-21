@@ -5,7 +5,7 @@
     <JenkinsHome>E:\Jenkins</JenkinsHome>
     <ToolsDir>$(JenkinsHome)\tools</ToolsDir>
     <BaseDir>$(MSBuildStartupDirectory)</BaseDir>
-    <BuildDir>$(BaseDir)\Build</BuildDir>    
+    <BuildDir>$(BaseDir)\BuildArtifacts</BuildDir>    
     <ReleaseDir>$(BuildDir)\Release</ReleaseDir>
     <PackageDir>$(BuildDir)\Package</PackageDir>
   
@@ -43,7 +43,7 @@
   </Target>
     
   <Target Name="Test" DependsOnTargets="Compile">
-    <CallTarget Targets="ExecuteXUnitTests" />  
+    <CallTarget Targets="ExecuteXUnitTests" />
   </Target>
 
 </Project>
