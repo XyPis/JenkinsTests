@@ -18,7 +18,7 @@
     <!-- Overrider properties -->
     <IntermediateOutputPath>$(BuildDir)\obj\</IntermediateOutputPath>
     <OutputPath>$(ReleaseDir)\</OutputPath>    
-    
+    <RunXunitTests>true</RunXunitTests>
     <BuildConfiguration Condition=" '$(BuildConfiguration)' == '' ">Release</BuildConfiguration>
   </PropertyGroup>
   
@@ -42,7 +42,8 @@
              Properties="OutputPath=$(OutputPath);IntermediateOutputPath=$(IntermediateOutputPath);Configuration=$(BuildConfiguration)"/>
   </Target>
     
-  <Target Name="Test" DependsOnTargets="Compile">        
+  <Target Name="Test" DependsOnTargets="Compile">
+        <CallTarget Targets="ExecuteXUnitTests" />  
   </Target>
 
 </Project>
