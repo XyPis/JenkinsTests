@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Test" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <Source>http://120.24.239.82:88/nuget</Source>   
+  <PropertyGroup>    
     <SolutionFileName>JenkinsTests.sln</SolutionFileName>
-    <JenkinsDir>E:\Program Files (x86)\Jenkins</JenkinsDir>
-    <ToolsDir>$(JenkinsDir)\tools</ToolsDir>
+    <JenkinsHome>E:\Jenkins</JenkinsHome>
+    <ToolsDir>$(JenkinsHome)\tools</ToolsDir>
     <BaseDir>$(MSBuildStartupDirectory)</BaseDir>
     <BuildDir>$(BaseDir)\Build</BuildDir>    
     <ReleaseDir>$(BuildDir)\Release</ReleaseDir>
@@ -37,7 +36,7 @@
     <MakeDir Directories="$(IntermediateOutputPath)" Condition="!EXISTS($(IntermediateOutputPath))" />
     <MakeDir Directories="$(PackageDir)" Condition="!EXISTS($(PackageDir))" />
     
-    <NuGetRestore Solution="$(SolutionFullName)" Source="$(Source)" />    
+    <NuGetRestore Solution="$(SolutionFullName)" ConfigFile="$(ToolsDir)\NuGet.Config" />    
     
     <MSBuild Projects="$(SolutionFullName)" 
              Properties="OutputPath=$(OutputPath);IntermediateOutputPath=$(IntermediateOutputPath);Configuration=$(BuildConfiguration)"/>
