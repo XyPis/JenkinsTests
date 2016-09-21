@@ -43,7 +43,7 @@
   </Target>
     
   <Target Name="Test" DependsOnTargets="Compile">
-        <CallTarget Targets="ExecuteXUnitTests" />  
+    <CallTarget Targets="ExecuteXUnitTests" />  
   </Target>
 
 </Project>
