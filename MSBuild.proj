@@ -37,7 +37,7 @@
     <MakeDir Directories="$(IntermediateOutputPath)" Condition="!EXISTS($(IntermediateOutputPath))" />
     <MakeDir Directories="$(PackageDir)" Condition="!EXISTS($(PackageDir))" />
     
-    <NuGetRestore Solution="$(SolutionFullName)" Source="$(Source)" />
+    <NuGetRestore Solution="$(SolutionFullName)" Source="$(Source)" />    
     
     <MSBuild Projects="$(SolutionFullName)" 
              Properties="OutputPath=$(OutputPath);IntermediateOutputPath=$(IntermediateOutputPath);Configuration=$(BuildConfiguration)"/>
