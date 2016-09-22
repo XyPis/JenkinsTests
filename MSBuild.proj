@@ -10,8 +10,7 @@
     <Reports>$(BuildArt)\reports</Reports>    
     <Packages>$(BuildArt)\packages</Packages>
     <Release>$(BuildArt)\release</Release>
-    <Debug>$(BuildArt)\debug</Debug>
-    <NuGet>"$(ToolPath)\nuget"</NuGet>
+    <Debug>$(BuildArt)\debug</Debug>    
     <SolutionFileName>JenkinsTests.sln</SolutionFileName>
 
     <MSBuildCommunityTasksPath>$(ToolPath)\MSBuildTasks.*\tools</MSBuildCommunityTasksPath>
@@ -32,14 +31,18 @@
     <DeleteTree Directories="**\obj\**;**\bin\**" ContinueOnError="true" />    
   </Target>
 
-  <!-- The LoadNuGetPackages Target -->
+  <!-- The RestorePackages Target -->
   <ItemGroup>
-    <NuGetPackageConfigs Include="$(MSBuildStartupDirectory)\**\packages.config" />
+    <LoadNuGetPackages Include="$(MSBuildStartupDirectory)\**\packages.config">
+      <Command>"$(ToolPath)\NuGet.exe"</Command>
+      <Config>"$(ToolPath)\NuGet.Config"</Config>
+      <Packages>"$(SourcePath)\packages"</Packages>
+    </LoadNuGetPackages>
   </ItemGroup>
   
   <Target Name="LoadNuGetPackages">
     <Message Importance="high" Text="Retrieving packages for %(NuGetPackageConfigs.Identity)" />
-    <Exec Command="$(NuGet) install %(NuGetPackageConfigs.Identity) -o $(MSBuildStartupDirectory)\packages -c $(ToolPath)\NuGet.Config" />
+    <Exec Command="%(LoadNuGetPackages.Command) install%(NuGetPackageConfigs.Identity) -o %(LoadNuGetPackages.Packages) -c %(LoadNuGetPackages.Config)" />
   </Target>
   
   <Target Name="Compile" DependsOnTargets="Clean;LoadNuGetPackages">
