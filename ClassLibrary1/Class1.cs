@@ -8,6 +8,11 @@ namespace ClassLibrary1
 {
     public class Class1
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public string Upper(string s)
         {
             return s.ToUpper();
