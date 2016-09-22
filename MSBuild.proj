@@ -3,7 +3,8 @@
   <PropertyGroup>    
     <ItemFullName>%ITEM_FULLNAME%</ItemFullName>    
     <RootPath>D:\jenkins workspace</RootPath>
-    <SourcePath>$(RootPath)\src</SourcePath>
+    <SourceRoot>$(RootPath)\src</SourceRoot>
+    <SourcePath>$(SourceRoot)\$(ItemFullName)</SourcePath>
     <BuildArt>$(RootPath)\build artifacts\$(ItemFullName)</BuildArt>
     <ToolPath>$(RootPath)\tools</ToolPath>
     
