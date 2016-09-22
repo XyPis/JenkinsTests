@@ -4,7 +4,7 @@
     <ItemFullName>ITEM_FULLNAME</ItemFullName>
     <RootPath>D:\workspace</RootPath>
     <SourcePath>$(RootPath)\src</SourcePath>
-    <BuildArt>$(RootPath)\build artifacts</BuildArt>
+    <BuildArt>$(RootPath)\build artifacts\$(ItemFullName)</BuildArt>
     <ToolPath>$(RootPath)\tools</ToolPath>
     
     <Reports>$(BuildArt)\reports</Reports>    
@@ -43,19 +43,35 @@
   </Target>
   
   <Target Name="Compile" DependsOnTargets="Clean;LoadNuGetPackages">
-    <MakeDir Directories="$(BuildArtifacts)" Condition="!EXISTS($(BuildArtifacts))" />
-    <MakeDir Directories="$(ReleasePath)" Condition="!EXISTS($(ReleasePath))" />
-    <MakeDir Directories="$(IntermediateOutputPath)" Condition="!EXISTS($(IntermediateOutputPath))" />
-    <MakeDir Directories="$(PackagePath)" Condition="!EXISTS($(PackagePath))" />
-    
-    <!--<NuGetRestore Solution="$(MSBuildStartupDirectory)\$(SolutionFileName)" ConfigFile="$(ToolPath)\NuGet.Config" />-->    
     
     <MSBuild Projects="$(MSBuildStartupDirectory)\$(SolutionFileName)" 
              Properties="OutputPath=$(OutputPath);IntermediateOutputPath=$(IntermediateOutputPath);Configuration=$(BuildConfiguration)"/>
   </Target>
-    
+
+  <Target Name="Test" DependsOnTargets="Compile">
+    <!--<CallTarget Targets="ExecuteXUnitTests" />-->
+  </Target>
+
+  <Target Name="GetVersion">
+    <GetAssemblyIdentity AssemblyFiles="$(VersionFile)">
+      <Output TaskParameter="Assemblies" ItemName="MyAssemblyIdentities"/>
+    </GetAssemblyIdentity>
+    <Message Text="Assembly Version: %(MyAssemblyIdentities.Version)"/>
+    <Message Text="File Name: $(VersionFile)"/>
+  </Target>
+  
+  <Target Name="Zip" DependsOnTargets="Test;GetVersion">
+    <ItemGroup>
+      <ZipFiles Include="$(release)\*" Exclude="$(release)\*Test*.*;"/>
+    </ItemGroup>
+
+    <Zip Files="@(ZipFiles)"
+         WorkingDirectory="$(release)"
+         ZipFileName="$(release).zip" />
+  </Target>
+
   <Target Name="Build" DependsOnTargets="Compile">
-    <CallTarget Targets="ExecuteXUnitTests" />
+    <CallTarget Targets="Zip" />
   </Target>
 
 </Project>
