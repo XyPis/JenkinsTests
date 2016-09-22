@@ -11,7 +11,7 @@
     <Packages>$(BuildArt)\packages</Packages>
     <Release>$(BuildArt)\release</Release>
     <Debug>$(BuildArt)\debug</Debug>
-    
+    <NuGet>"$(ToolPath)\nuget"</NuGet>
     <SolutionFileName>JenkinsTests.sln</SolutionFileName>
 
     <MSBuildCommunityTasksPath>$(ToolPath)\MSBuildTasks.*\tools</MSBuildCommunityTasksPath>
@@ -39,7 +39,7 @@
   
   <Target Name="LoadNuGetPackages">
     <Message Importance="high" Text="Retrieving packages for %(NuGetPackageConfigs.Identity)" />
-    <Exec Command="$(ToolPath)\nuget install %(NuGetPackageConfigs.Identity) -o $(MSBuildStartupDirectory)\packages -c $(ToolPath)\NuGet.Config" />
+    <Exec Command="$(NuGet) install %(NuGetPackageConfigs.Identity) -o $(MSBuildStartupDirectory)\packages -c $(ToolPath)\NuGet.Config" />
   </Target>
   
   <Target Name="Compile" DependsOnTargets="Clean;LoadNuGetPackages">
