@@ -1,18 +1,18 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace UnitTestProject1
 {
-    [TestClass]
+ 
     public class UnitTest1
-    {
-        [TestMethod]
+    {           
+        [Fact]
         public void TestMethod1()
         {
             ClassLibrary1.Class1 c1 = new ClassLibrary1.Class1();
             string s = "dragon luo";
 
-            Assert.AreEqual(s.ToUpper(), c1.Upper(s));
+            Assert.Equal(s.ToUpper(), c1.Upper(s));
         }
     }
 }

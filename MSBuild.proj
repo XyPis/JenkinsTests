@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <!-- General Paths -->
-    <!--<RootPath>$(MSBuildProjectDirectory)</RootPath>
-    <SrcPath>$(RootPath)\src</SrcPath>
-    <ReportsPath>$(RootPath)\reports</ReportsPath>
-    <ToolsPath>$(RootPath)\tools</ToolsPath>
-    <Packages>$(SrcPath)\packages</Packages>-->
+    <ItemFullName>ITEM_FULLNAME</ItemFullName>
+    <RootPath>D:\workspace</RootPath>
+    <SourcePath>$(RootPath)\src</SourcePath>
+    <BuildArt>$(RootPath)\build artifacts</BuildArt>
+    <ToolPath>$(RootPath)\tools</ToolPath>
+    
+    <Reports>$(BuildArt)\reports</Reports>    
+    <Packages>$(BuildArt)\packages</Packages>
+    <Release>$(BuildArt)\release</Release>
+    <Debug>$(BuildArt)\debug</Debug>
     
     <SolutionFileName>JenkinsTests.sln</SolutionFileName>
-    <JenkinsHome>E:\Jenkins</JenkinsHome>
-    <ToolPath>$(JenkinsHome)\workspace\tools</ToolPath>    
-    <BuildArtifacts>$(MSBuildStartupDirectory)\BuildArtifacts</BuildArtifacts>
-    <ReleasePath>$(BuildArtifacts)\Release</ReleasePath>
-    <PackagePath>$(BuildArtifacts)\Package</PackagePath>     
-  
+
     <MSBuildCommunityTasksPath>$(ToolPath)\MSBuildTasks.*\tools</MSBuildCommunityTasksPath>
     <XUnitTasksPath>$(ToolPath)\xunit.MSBuild.*</XUnitTasksPath>    
     
-    <!-- Overrider properties -->
-    
-    <IntermediateOutputPath>$(BuildArtifacts)\obj\</IntermediateOutputPath>
-    <OutputPath>$(ReleasePath)\</OutputPath>
+    <!-- Overrider properties -->    
+    <IntermediateOutputPath>$(BuildArt)\obj\</IntermediateOutputPath>
+    <OutputPath>$(Release)\</OutputPath>
     
     <BuildConfiguration Condition="'$(BuildConfiguration)' == ''">Release</BuildConfiguration>
   </PropertyGroup>
@@ -30,7 +28,7 @@
   <Import Project="$(XUnitTasksPath)\build\xunit.MSBuild.targets" />
    
   <Target Name="Clean">    
-    <DeleteTree Directories="$(BuildArtifacts)" ContinueOnError="true" />
+    <DeleteTree Directories="$(BuildArt)" ContinueOnError="true" />
     <DeleteTree Directories="**\obj\**;**\bin\**" ContinueOnError="true" />    
   </Target>
 
