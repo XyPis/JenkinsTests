@@ -44,7 +44,8 @@
   
   <Target Name="Compile" DependsOnTargets="Clean;LoadNuGetPackages">
     
-    <MSBuild Projects="$(MSBuildStartupDirectory)\$(SolutionFileName)" 
+    <MSBuild Projects="$(MSBuildStartupDirectory)\$(SolutionFileName)"
+             BuildInParallel="true"
              Properties="OutputPath=$(OutputPath);IntermediateOutputPath=$(IntermediateOutputPath);Configuration=$(BuildConfiguration)"/>
   </Target>
 
