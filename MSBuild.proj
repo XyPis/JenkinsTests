@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ItemFullName>ITEM_FULLNAME</ItemFullName>
-    <RootPath>D:\workspace</RootPath>
+  <PropertyGroup>    
+    <ItemFullName>%ITEM_FULLNAME%</ItemFullName>    
+    <RootPath>D:\jenkins workspace</RootPath>
     <SourcePath>$(RootPath)\src</SourcePath>
     <BuildArt>$(RootPath)\build artifacts\$(ItemFullName)</BuildArt>
     <ToolPath>$(RootPath)\tools</ToolPath>
@@ -48,9 +48,8 @@
              BuildInParallel="true"
              Properties="OutputPath=$(OutputPath);IntermediateOutputPath=$(IntermediateOutputPath);Configuration=$(BuildConfiguration)"/>
   </Target>
-
-  <Target Name="Test" DependsOnTargets="Compile">
-    <!--<CallTarget Targets="ExecuteXUnitTests" />-->
+ 
+  <Target Name="Test" DependsOnTargets="Compile"> 
   </Target>
 
   <Target Name="GetVersion">
@@ -66,9 +65,7 @@
       <ZipFiles Include="$(release)\*" Exclude="$(release)\*Test*.*;"/>
     </ItemGroup>
 
-    <Zip Files="@(ZipFiles)"
-         WorkingDirectory="$(release)"
-         ZipFileName="$(release).zip" />
+    <Zip Files="@(ZipFiles)" WorkingDirectory="$(release)" ZipFileName="$(release).zip" />
   </Target>
 
   <Target Name="Build" DependsOnTargets="Compile">
