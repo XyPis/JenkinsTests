@@ -17,7 +17,7 @@
     <MSBuildCommunityTasksPath>$(ToolPath)\MSBuildTasks.*\tools</MSBuildCommunityTasksPath>
     <XUnitTasksPath>$(ToolPath)\xunit.MSBuild.*</XUnitTasksPath>    
     
-    <!-- Overrider properties -->    
+    <!-- Overrider properties -->
     <IntermediateOutputPath>$(BuildArt)\obj\</IntermediateOutputPath>
     <OutputPath>$(Release)\</OutputPath>
     
@@ -53,7 +53,7 @@
              Properties="OutputPath=$(OutputPath);IntermediateOutputPath=$(IntermediateOutputPath);Configuration=$(BuildConfiguration)"/>
   </Target>
  
-  <Target Name="Test" DependsOnTargets="Compile"> 
+  <Target Name="Test" DependsOnTargets="Compile">
   </Target>
 
   <Target Name="GetVersion">
